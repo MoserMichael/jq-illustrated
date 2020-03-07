@@ -1,0 +1,7 @@
+{
+    "kind": "Deployment",
+    "spec": {
+        "replicas": 1
+    }
+}
+

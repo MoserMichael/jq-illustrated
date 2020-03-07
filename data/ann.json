@@ -1,0 +1,12 @@
+{
+  "metadata": {
+    "annotations": {
+      "deployment.kubernetes.io/revision": "1",
+      "machine.openshift.io/owned": "",
+      "label1" : "stam",
+      "label2" : "another",
+      "label3" : "one"
+    }
+  }
+}
+  
