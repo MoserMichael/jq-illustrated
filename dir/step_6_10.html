@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <link rel="stylesheet" href="github-markdown.css">
+  </head>
+  <body class="markdown-body">
+    <table>
+        <tr>
+            <th>
+cat data/ann.json | jq ".metadata.annotations  |  to_entries  |  map(select(.key == "label1" or .key == "label2"))  |  from_entries"
+            </th>
+        </tr>
+        <tr>
+            <td>
+    <pre>
+{
+  "label1": "stam",
+  "label2": "another"
+}
+    </pre>
+            </td>
+        </tr>
+     </table>
+  </body>
+</html>

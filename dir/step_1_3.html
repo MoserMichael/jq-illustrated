@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <link rel="stylesheet" href="github-markdown.css">
+  </head>
+  <body class="markdown-body">
+
+    <h1>jq '.spec '</h1>
+    <table>
+        <tr>
+            <th>
+cat data/s1.json  
+            </th>
+            <th>
+cat data/s1.json  | jq '.spec '
+            </th>
+        </tr>
+        <tr>
+            <td>
+    <pre>
+{
+    "kind": "Deployment",
+    "spec": {
+        "replicas": 1
+    }
+}
+    </pre>
+            </td>
+            <td>
+    <pre>
+{
+  "replicas": 1
+}
+    </pre>
+            </td>
+        </tr>
+     </table>
+  </body>
+</html>

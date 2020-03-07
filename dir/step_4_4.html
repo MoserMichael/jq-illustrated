@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <link rel="stylesheet" href="github-markdown.css">
+  </head>
+  <body class="markdown-body">
+    <table>
+        <tr>
+            <th>
+cat data/dep.json  | jq ".status.conditions "
+            </th>
+        </tr>
+        <tr>
+            <td>
+    <pre>
+[
+  {
+    "lastTransitionTime": "2020-01-23T03:48:23Z",
+    "lastUpdateTime": "2020-01-23T03:48:23Z",
+    "message": "Deployment has minimum availability.",
+    "reason": "MinimumReplicasAvailable",
+    "status": "True",
+    "type": "Available"
+  },
+  {
+    "lastTransitionTime": "2020-01-23T03:47:56Z",
+    "lastUpdateTime": "2020-01-23T03:48:23Z",
+    "message": "ReplicaSet \"machine-api-controllers-5f4ddff7f4\" has successfully progressed.",
+    "reason": "NewReplicaSetAvailable",
+    "status": "True",
+    "type": "Progressing"
+  }
+]
+    </pre>
+            </td>
+        </tr>
+     </table>
+  </body>
+</html>

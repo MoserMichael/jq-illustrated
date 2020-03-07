@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <link rel="stylesheet" href="github-markdown.css">
+  </head>
+  <body class="markdown-body">
+    <table>
+        <tr>
+            <th>
+cat data/ann.json | jq ".metadata.annotations  += { "label4" : "two" }"
+            </th>
+        </tr>
+        <tr>
+            <td>
+    <pre>
+{
+  "metadata": {
+    "annotations": {
+      "deployment.kubernetes.io/revision": "1",
+      "machine.openshift.io/owned": "",
+      "label1": "stam",
+      "label2": "another",
+      "label3": "one",
+      "label4": "two"
+    }
+  }
+}
+    </pre>
+            </td>
+        </tr>
+     </table>
+  </body>
+</html>

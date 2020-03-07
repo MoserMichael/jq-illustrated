@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <link rel="stylesheet" href="github-markdown.css">
+  </head>
+  <body class="markdown-body">
+
+    <h1>jq ' .replicas'</h1>
+    <table>
+        <tr>
+            <th>
+cat data/s1.json   | jq '.spec '
+            </th>
+            <th>
+cat data/s1.json  | jq '.spec  |  .replicas'
+            </th>
+        </tr>
+        <tr>
+            <td>
+    <pre>
+{
+  "replicas": 1
+}
+    </pre>
+            </td>
+            <td>
+    <pre>
+1
+    </pre>
+            </td>
+        </tr>
+     </table>
+  </body>
+</html>
