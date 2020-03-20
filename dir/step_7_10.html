@@ -9,7 +9,7 @@
     <table>
         <tr>
             <th>
-cat data/ann.json | jq ".metadata.annotations  |  to_entries  |  map(select(.key == ("label1", "label2")))  |  from_entries "
+cat data/ann.json | jq ".metadata.annotations  |  to_entries  |  map(select(.key == "label1" or .key == "label2"))  |  from_entries"
             </th>
         </tr>
         <tr>

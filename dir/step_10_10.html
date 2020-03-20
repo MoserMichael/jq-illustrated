@@ -9,7 +9,7 @@
     <table>
         <tr>
             <th>
-cat data/ann.json | jq ".metadata.annotations  |  to_entries  |  map(select(.key | contains("label")))  |  from_entries"
+cat data/ann.json | jq " .metadata.annotations  |  to_entries  |  map(select(.key | test("label[1-9]")))  |  from_entries "
             </th>
         </tr>
         <tr>

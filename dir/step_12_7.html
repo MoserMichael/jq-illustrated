@@ -7,14 +7,14 @@
   </head>
   <body class="markdown-body">
 
-    <h1>jq ' map(select(.key | contains("label"))) '</h1>
+    <h1>jq ' map_values(.value="override-value") '</h1>
     <table>
         <tr>
             <th>
 cat data/ann.json  | jq '.metadata.annotations  |  to_entries '
             </th>
             <th>
-cat data/ann.json | jq '.metadata.annotations  |  to_entries  |  map(select(.key | contains("label"))) '
+cat data/ann.json | jq '.metadata.annotations  |  to_entries  |  map_values(.value="override-value") '
             </th>
         </tr>
         <tr>
@@ -48,16 +48,24 @@ cat data/ann.json | jq '.metadata.annotations  |  to_entries  |  map(select(.key
     <pre>
 [
   {
+    "key": "deployment.kubernetes.io/revision",
+    "value": "override-value"
+  },
+  {
+    "key": "machine.openshift.io/owned",
+    "value": "override-value"
+  },
+  {
     "key": "label1",
-    "value": "stam"
+    "value": "override-value"
   },
   {
     "key": "label2",
-    "value": "another"
+    "value": "override-value"
   },
   {
     "key": "label3",
-    "value": "one"
+    "value": "override-value"
   }
 ]
     </pre>

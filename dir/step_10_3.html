@@ -7,14 +7,14 @@
   </head>
   <body class="markdown-body">
 
-    <h1>jq '.metadata.annotations  += { "label4" : "two" }'</h1>
+    <h1>jq ' .metadata.annotations '</h1>
     <table>
         <tr>
             <th>
 cat data/ann.json 
             </th>
             <th>
-cat data/ann.json | jq '.metadata.annotations  += { "label4" : "two" }'
+cat data/ann.json | jq ' .metadata.annotations '
             </th>
         </tr>
         <tr>
@@ -37,16 +37,11 @@ cat data/ann.json | jq '.metadata.annotations  += { "label4" : "two" }'
             <td>
     <pre>
 {
-  "metadata": {
-    "annotations": {
-      "deployment.kubernetes.io/revision": "1",
-      "machine.openshift.io/owned": "",
-      "label1": "stam",
-      "label2": "another",
-      "label3": "one",
-      "label4": "two"
-    }
-  }
+  "deployment.kubernetes.io/revision": "1",
+  "machine.openshift.io/owned": "",
+  "label1": "stam",
+  "label2": "another",
+  "label3": "one"
 }
     </pre>
             </td>

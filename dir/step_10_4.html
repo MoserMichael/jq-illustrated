@@ -9,23 +9,18 @@
     <table>
         <tr>
             <th>
-cat data/ann.json | jq ".metadata.annotations  += { "label4" : "two" }"
+cat data/ann.json | jq " .metadata.annotations "
             </th>
         </tr>
         <tr>
             <td>
     <pre>
 {
-  "metadata": {
-    "annotations": {
-      "deployment.kubernetes.io/revision": "1",
-      "machine.openshift.io/owned": "",
-      "label1": "stam",
-      "label2": "another",
-      "label3": "one",
-      "label4": "two"
-    }
-  }
+  "deployment.kubernetes.io/revision": "1",
+  "machine.openshift.io/owned": "",
+  "label1": "stam",
+  "label2": "another",
+  "label3": "one"
 }
     </pre>
             </td>

@@ -7,14 +7,14 @@
   </head>
   <body class="markdown-body">
 
-    <h1>jq ' from_entries'</h1>
+    <h1>jq ' from_entries '</h1>
     <table>
         <tr>
             <th>
-cat data/ann.json  | jq '.metadata.annotations  |  to_entries  |  map(select(.key | contains("label"))) '
+cat data/ann.json  | jq '.metadata.annotations  |  to_entries  |  map(select(.key == ("label1", "label2"))) '
             </th>
             <th>
-cat data/ann.json | jq '.metadata.annotations  |  to_entries  |  map(select(.key | contains("label")))  |  from_entries'
+cat data/ann.json | jq '.metadata.annotations  |  to_entries  |  map(select(.key == ("label1", "label2")))  |  from_entries '
             </th>
         </tr>
         <tr>
@@ -28,10 +28,6 @@ cat data/ann.json | jq '.metadata.annotations  |  to_entries  |  map(select(.key
   {
     "key": "label2",
     "value": "another"
-  },
-  {
-    "key": "label3",
-    "value": "one"
   }
 ]
     </pre>
@@ -40,8 +36,7 @@ cat data/ann.json | jq '.metadata.annotations  |  to_entries  |  map(select(.key
     <pre>
 {
   "label1": "stam",
-  "label2": "another",
-  "label3": "one"
+  "label2": "another"
 }
     </pre>
             </td>

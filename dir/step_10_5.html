@@ -7,17 +7,28 @@
   </head>
   <body class="markdown-body">
 
-    <h1>jq ' map(select(.key | contains("label"))) '</h1>
+    <h1>jq ' to_entries '</h1>
     <table>
         <tr>
             <th>
-cat data/ann.json  | jq '.metadata.annotations  |  to_entries '
+cat data/ann.json  | jq ' .metadata.annotations '
             </th>
             <th>
-cat data/ann.json | jq '.metadata.annotations  |  to_entries  |  map(select(.key | contains("label"))) '
+cat data/ann.json | jq ' .metadata.annotations  |  to_entries '
             </th>
         </tr>
         <tr>
+            <td>
+    <pre>
+{
+  "deployment.kubernetes.io/revision": "1",
+  "machine.openshift.io/owned": "",
+  "label1": "stam",
+  "label2": "another",
+  "label3": "one"
+}
+    </pre>
+            </td>
             <td>
     <pre>
 [
@@ -29,24 +40,6 @@ cat data/ann.json | jq '.metadata.annotations  |  to_entries  |  map(select(.key
     "key": "machine.openshift.io/owned",
     "value": ""
   },
-  {
-    "key": "label1",
-    "value": "stam"
-  },
-  {
-    "key": "label2",
-    "value": "another"
-  },
-  {
-    "key": "label3",
-    "value": "one"
-  }
-]
-    </pre>
-            </td>
-            <td>
-    <pre>
-[
   {
     "key": "label1",
     "value": "stam"

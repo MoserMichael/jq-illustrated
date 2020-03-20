@@ -6,15 +6,10 @@
     <link rel="stylesheet" href="github-markdown.css">
   </head>
   <body class="markdown-body">
-
-    <h1>jq ' map(select(.key | contains("label"))) '</h1>
     <table>
         <tr>
             <th>
-cat data/ann.json  | jq '.metadata.annotations  |  to_entries '
-            </th>
-            <th>
-cat data/ann.json | jq '.metadata.annotations  |  to_entries  |  map(select(.key | contains("label"))) '
+cat data/ann.json | jq " .metadata.annotations  |  to_entries "
             </th>
         </tr>
         <tr>
@@ -29,24 +24,6 @@ cat data/ann.json | jq '.metadata.annotations  |  to_entries  |  map(select(.key
     "key": "machine.openshift.io/owned",
     "value": ""
   },
-  {
-    "key": "label1",
-    "value": "stam"
-  },
-  {
-    "key": "label2",
-    "value": "another"
-  },
-  {
-    "key": "label3",
-    "value": "one"
-  }
-]
-    </pre>
-            </td>
-            <td>
-    <pre>
-[
   {
     "key": "label1",
     "value": "stam"

@@ -7,14 +7,14 @@
   </head>
   <body class="markdown-body">
 
-    <h1>jq ' to_entries '</h1>
+    <h1>jq ' with_entries(select(.key == "label1"))'</h1>
     <table>
         <tr>
             <th>
 cat data/ann.json  | jq '.metadata.annotations '
             </th>
             <th>
-cat data/ann.json | jq '.metadata.annotations  |  to_entries '
+cat data/ann.json | jq '.metadata.annotations  |  with_entries(select(.key == "label1"))'
             </th>
         </tr>
         <tr>
@@ -31,28 +31,9 @@ cat data/ann.json | jq '.metadata.annotations  |  to_entries '
             </td>
             <td>
     <pre>
-[
-  {
-    "key": "deployment.kubernetes.io/revision",
-    "value": "1"
-  },
-  {
-    "key": "machine.openshift.io/owned",
-    "value": ""
-  },
-  {
-    "key": "label1",
-    "value": "stam"
-  },
-  {
-    "key": "label2",
-    "value": "another"
-  },
-  {
-    "key": "label3",
-    "value": "one"
-  }
-]
+{
+  "label1": "stam"
+}
     </pre>
             </td>
         </tr>
