@@ -41,6 +41,11 @@ MSG_CMD_CMD4="Select a single key value pair from a json object"
 SRC_CMD_CMD4="ann.json"
 CMD_CMD4='.metadata.annotations | to_entries | map(select(.key == "label1")) | from_entries'
 
+MSG_CMD_CMD4a="Select a single key value pair from a json object - short form"
+SRC_CMD_CMD4a="ann.json"
+CMD_CMD4a='.metadata.annotations | with_entries(select(.key == "label1"))'
+
+
 MSG_CMD_CMD5="Select two key value pairs from a json object"
 SRC_CMD_CMD5="ann.json"
 CMD_CMD5='.metadata.annotations | to_entries | map(select(.key == "label1" or .key == "label2")) | from_entries'
