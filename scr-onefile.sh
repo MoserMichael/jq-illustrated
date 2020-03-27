@@ -70,13 +70,13 @@ MSG_CMD_CMD8='Set all values in a json object'
 SRC_CMD_CMD8="ann.json"
 CMD_CMD8='.metadata.annotations | to_entries | map_values(.value="override-value") | from_entries'
 
-OFILE=content.html
-
 ###
 # other parameters
 ###
-OUT_DIR=dir
+OUT_DIR=dir-single-file
 #LINK_ATTRIB="target=\"example\""
+OFILE=content.html
+
 
 function init() {
     if [ ! -d "$OUT_DIR" ]; then
@@ -85,10 +85,15 @@ function init() {
       rm -f ${OUT_DIR}/*
     fi
     cp template/* ${OUT_DIR}/
+    EXAMPLE=-1
+
+    TMPFILE=$(mktemp /tmp/scr-one-file.XXXXX)
+
+    set -x
     cat "${OUT_DIR}/content_start.html" >>${OUT_DIR}/${OFILE}
+    cat "${OUT_DIR}/jscript.html" >>${OUT_DIR}/${OFILE}
     cat "${OUT_DIR}/content_end.html" >>${OUT_DIR}/${OFILE}
 
-    EXAMPLE=-1
 }
 
 function init_step() {
@@ -102,33 +107,38 @@ $LINK_TEXT
 <br/>
 
 EOF
+        cat $TMPFILE >>${OUT_DIR}/${OFILE}
     fi
 
     cat >>${OUT_DIR}/${OFILE} <<EOF
 <h2>${TITLES[$EXAMPLE]}<h2>
 <br/>
-<code>
 
 EOF
+
+     echo "" >${TMPFILE}
 
      EXAMPLE_STAGE=1
      LINK_TEXT=""
 }
 
-function eof_step() {
+function eof_step() { 
+
+    cat $TMPFILE >>${OUT_DIR}/${OFILE}
     echo "$LINK_TEXT" >>${OUT_DIR}/${OFILE}
-}
+    rm -f "$TMPFILE"
+} 
 
 function add_text() {
     LINK_TEXT="$LINK_TEXT $@"
 }
 
 function add_link() {
-    local url="$1" 
+    local divid="$1" 
     local text="$2"
     local link_text
 
-    link_text="<a href=\"${url}\" ${LINK_ATTRIB}>${text}</a>"
+    link_text="<a onclick=\"show_div('${divid}')\" href=\"javascript:void(0);\"  ${LINK_ATTRIB}>${text}</a>"
     add_text "$link_text"
 }
 
@@ -136,7 +146,6 @@ function next_step_file_name() {
 
     EXAMPLE_STAGE=$((${EXAMPLE_STAGE}+1))
     STEP_LINK="step_${EXAMPLE}_${EXAMPLE_STAGE}.html"
-    STEP_FILE="${OUT_DIR}/${STEP_LINK}"
 }
 
 function add_stage_file() {
@@ -145,15 +154,8 @@ function add_stage_file() {
 
     next_step_file_name
 
-    cat >${STEP_FILE} <<EOF
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>title</title>
-    <link rel="stylesheet" href="github-markdown.css">
-  </head>
-  <body class="markdown-body">
+    cat >>${TMPFILE} <<EOF
+    <div id="${STEP_LINK}" style="display:none">
     <table>
         <tr>
             <th>
@@ -167,9 +169,8 @@ ${text}
     </pre>
             </td>
         </tr>
-     </table>
-  </body>
-</html>
+    </table>
+    </div>
 EOF
  
 }
@@ -231,17 +232,10 @@ function make_jq_step() {
 
     add_link "${STEP_LINK}" "$t"
 
-    cat >${STEP_FILE} <<EOF
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>title</title>
-    <link rel="stylesheet" href="github-markdown.css">
-  </head>
-  <body class="markdown-body">
+    cat >>${TMPFILE} <<EOF
 
-    <h1>jq '$t'</h1>
+    <div id="${STEP_LINK}" style="display:none">
+    <!-- <b>jq '$t'</b> //-->
     <table>
         <tr>
             <th>
@@ -263,9 +257,8 @@ $cmd_dat_now
     </pre>
             </td>
         </tr>
-     </table>
-  </body>
-</html>
+    </table>
+    </div>
 EOF
      
 }
@@ -339,6 +332,7 @@ function run_it() {
 
             add_text  "'"
 
+            
     done <<< "$mystuff"
 
     eof_step
