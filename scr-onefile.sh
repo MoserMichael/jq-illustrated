@@ -55,7 +55,7 @@ EOF
     fi
 
     cat >>${OUT_DIR}/${OFILE} <<EOF
-<h2>${TITLES[$EXAMPLE]}<h2>
+<h2>${TITLES[$EXAMPLE]}</h2>
 <br/>
 
 EOF
