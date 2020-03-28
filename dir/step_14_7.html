@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <link rel="stylesheet" href="github-markdown.css">
+  </head>
+  <body class="markdown-body">
+
+    <h1>jq ' map(if .key  | contains("label") then .value="kuku" else .  end) '</h1>
+    <table>
+        <tr>
+            <th>
+cat data/ann.json  | jq '.metadata.annotations  |  to_entries '
+            </th>
+            <th>
+cat data/ann.json | jq '.metadata.annotations  |  to_entries  |  map(if .key  | contains("label") then .value="kuku" else .  end) '
+            </th>
+        </tr>
+        <tr>
+            <td>
+    <pre>
+[
+  {
+    "key": "deployment.kubernetes.io/revision",
+    "value": "1"
+  },
+  {
+    "key": "machine.openshift.io/owned",
+    "value": ""
+  },
+  {
+    "key": "label1",
+    "value": "stam"
+  },
+  {
+    "key": "label2",
+    "value": "another"
+  },
+  {
+    "key": "label3",
+    "value": "one"
+  }
+]
+    </pre>
+            </td>
+            <td>
+    <pre>
+[
+  {
+    "key": "deployment.kubernetes.io/revision",
+    "value": "1"
+  },
+  {
+    "key": "machine.openshift.io/owned",
+    "value": ""
+  },
+  {
+    "key": "label1",
+    "value": "kuku"
+  },
+  {
+    "key": "label2",
+    "value": "kuku"
+  },
+  {
+    "key": "label3",
+    "value": "kuku"
+  }
+]
+    </pre>
+            </td>
+        </tr>
+     </table>
+  </body>
+</html>

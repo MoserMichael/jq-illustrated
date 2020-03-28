@@ -9,7 +9,7 @@
     <table>
         <tr>
             <th>
-cat data/ann.json | jq ".metadata.annotations "
+cat data/ann.json | jq ".metadata.annotations  |  to_entries  |  map(if .key  | contains("label") then .value="kuku" else .  end)  |  from_entries"
             </th>
         </tr>
         <tr>
@@ -18,9 +18,9 @@ cat data/ann.json | jq ".metadata.annotations "
 {
   "deployment.kubernetes.io/revision": "1",
   "machine.openshift.io/owned": "",
-  "label1": "stam",
-  "label2": "another",
-  "label3": "one"
+  "label1": "kuku",
+  "label2": "kuku",
+  "label3": "kuku"
 }
     </pre>
             </td>

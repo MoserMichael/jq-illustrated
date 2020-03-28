@@ -9,19 +9,34 @@
     <table>
         <tr>
             <th>
-cat data/ann.json | jq ".metadata.annotations "
+cat data/ann.json | jq ".metadata.annotations  |  to_entries "
             </th>
         </tr>
         <tr>
             <td>
     <pre>
-{
-  "deployment.kubernetes.io/revision": "1",
-  "machine.openshift.io/owned": "",
-  "label1": "stam",
-  "label2": "another",
-  "label3": "one"
-}
+[
+  {
+    "key": "deployment.kubernetes.io/revision",
+    "value": "1"
+  },
+  {
+    "key": "machine.openshift.io/owned",
+    "value": ""
+  },
+  {
+    "key": "label1",
+    "value": "stam"
+  },
+  {
+    "key": "label2",
+    "value": "another"
+  },
+  {
+    "key": "label3",
+    "value": "one"
+  }
+]
     </pre>
             </td>
         </tr>

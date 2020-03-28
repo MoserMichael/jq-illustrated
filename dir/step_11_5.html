@@ -6,10 +6,15 @@
     <link rel="stylesheet" href="github-markdown.css">
   </head>
   <body class="markdown-body">
+
+    <h1>jq ' with_entries(select(.key | contains("label")))'</h1>
     <table>
         <tr>
             <th>
-cat data/ann.json | jq ".metadata.annotations "
+cat data/ann.json  | jq '.metadata.annotations '
+            </th>
+            <th>
+cat data/ann.json | jq '.metadata.annotations  |  with_entries(select(.key | contains("label")))'
             </th>
         </tr>
         <tr>
@@ -18,6 +23,15 @@ cat data/ann.json | jq ".metadata.annotations "
 {
   "deployment.kubernetes.io/revision": "1",
   "machine.openshift.io/owned": "",
+  "label1": "stam",
+  "label2": "another",
+  "label3": "one"
+}
+    </pre>
+            </td>
+            <td>
+    <pre>
+{
   "label1": "stam",
   "label2": "another",
   "label3": "one"

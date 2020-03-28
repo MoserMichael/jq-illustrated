@@ -42,7 +42,7 @@ Parsing of text streams is the Unix way of doing things and it has proven to be 
 
 <ul>
     <li> kubernetes: the <a href="https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands">kubectl</a> and opeshift <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.2/html-single/cli_tools/index">oc</a> commands can produce its output in json format (option -o json)
-    <li> the  <a href="https://github.com/Juniper/libxo">libxo</a> library can be used with a variety of FreeBsd base utilities to produce json output; For example the <a href="https://www.freebsd.org/cgi/man.cgi?ps(1)">ps</a> command can produce json output with the --libxo option. Other converted base utilities of FreBsd are listed <a href="https://wiki.freebsd.org/LibXo">here</a>
+    <li> the  <a href="https://github.com/Juniper/libxo">libxo</a> library is used with a variety of FreeBsd base utilities to produce json output; For example the <a href="https://www.freebsd.org/cgi/man.cgi?ps(1)">ps</a> command can produce json output with the --libxo option. Other converted base utilities of FreeBsd are listed <a href="https://wiki.freebsd.org/LibXo">here</a>
     <li> a project that produces json output for many common Linux base utilities is <a href="https://github.com/kellyjonbrazil/jc">jc</a>
 </ul>
 
@@ -2821,10 +2821,10 @@ cat data/ann.json | jq " .metadata.annotations  |  to_entries  |  map(select(.ke
         </tr>
     </table>
     </div>
-<h2>Add another key value pair to a json object</h2>
+<h2>Select all key value pairs from a json object where the name contains substring "label" (short form)</h2>
 <br/>
 
- cat  <a onclick="show_div('step_11_2.html')" href="javascript:void(0);"  >ann.json </a>  | jq ' <a onclick="show_div('step_11_3.html')" href="javascript:void(0);"  >.metadata.annotations  += { "label4" : "two" }</a> '
+ cat  <a onclick="show_div('step_11_2.html')" href="javascript:void(0);"  >ann.json </a>  | jq ' <a onclick="show_div('step_11_3.html')" href="javascript:void(0);"  >.metadata.annotations </a> <a onclick="show_div('step_11_4.html')" href="javascript:void(0);"  > | </a> <a onclick="show_div('step_11_5.html')" href="javascript:void(0);"  > with_entries(select(.key | contains("label")))</a> '
 </code>
 <br/>
 <br/>
@@ -2859,6 +2859,163 @@ cat ann.json
     </div>
 
     <div id="step_11_3.html" style="display:none">
+    <!-- <b>jq '.metadata.annotations '</b> //-->
+    <table>
+        <tr>
+            <th>
+cat data/ann.json 
+            </th>
+            <th>
+cat data/ann.json | jq '.metadata.annotations '
+            </th>
+        </tr>
+        <tr>
+            <td>
+    <pre>
+{
+  "metadata": {
+    "annotations": {
+      "deployment.kubernetes.io/revision": "1",
+      "machine.openshift.io/owned": "",
+      "label1" : "stam",
+      "label2" : "another",
+      "label3" : "one"
+    }
+  }
+}
+  
+    </pre>
+            </td>
+            <td>
+    <pre>
+{
+  "deployment.kubernetes.io/revision": "1",
+  "machine.openshift.io/owned": "",
+  "label1": "stam",
+  "label2": "another",
+  "label3": "one"
+}
+    </pre>
+            </td>
+        </tr>
+    </table>
+    </div>
+    <div id="step_11_4.html" style="display:none">
+    <table>
+        <tr>
+            <th>
+cat data/ann.json | jq ".metadata.annotations "
+            </th>
+        </tr>
+        <tr>
+            <td>
+    <pre>
+{
+  "deployment.kubernetes.io/revision": "1",
+  "machine.openshift.io/owned": "",
+  "label1": "stam",
+  "label2": "another",
+  "label3": "one"
+}
+    </pre>
+            </td>
+        </tr>
+    </table>
+    </div>
+
+    <div id="step_11_5.html" style="display:none">
+    <!-- <b>jq ' with_entries(select(.key | contains("label")))'</b> //-->
+    <table>
+        <tr>
+            <th>
+cat data/ann.json  | jq '.metadata.annotations '
+            </th>
+            <th>
+cat data/ann.json | jq '.metadata.annotations  |  with_entries(select(.key | contains("label")))'
+            </th>
+        </tr>
+        <tr>
+            <td>
+    <pre>
+{
+  "deployment.kubernetes.io/revision": "1",
+  "machine.openshift.io/owned": "",
+  "label1": "stam",
+  "label2": "another",
+  "label3": "one"
+}
+    </pre>
+            </td>
+            <td>
+    <pre>
+{
+  "label1": "stam",
+  "label2": "another",
+  "label3": "one"
+}
+    </pre>
+            </td>
+        </tr>
+    </table>
+    </div>
+    <div id="step_11_6.html" style="display:none">
+    <table>
+        <tr>
+            <th>
+cat data/ann.json | jq ".metadata.annotations  |  with_entries(select(.key | contains("label")))"
+            </th>
+        </tr>
+        <tr>
+            <td>
+    <pre>
+{
+  "label1": "stam",
+  "label2": "another",
+  "label3": "one"
+}
+    </pre>
+            </td>
+        </tr>
+    </table>
+    </div>
+<h2>Add another key value pair to a json object</h2>
+<br/>
+
+ cat  <a onclick="show_div('step_12_2.html')" href="javascript:void(0);"  >ann.json </a>  | jq ' <a onclick="show_div('step_12_3.html')" href="javascript:void(0);"  >.metadata.annotations  += { "label4" : "two" }</a> '
+</code>
+<br/>
+<br/>
+
+
+    <div id="step_12_2.html" style="display:none">
+    <table>
+        <tr>
+            <th>
+cat ann.json
+            </th>
+        </tr>
+        <tr>
+            <td>
+    <pre>
+{
+  "metadata": {
+    "annotations": {
+      "deployment.kubernetes.io/revision": "1",
+      "machine.openshift.io/owned": "",
+      "label1" : "stam",
+      "label2" : "another",
+      "label3" : "one"
+    }
+  }
+}
+  
+    </pre>
+            </td>
+        </tr>
+    </table>
+    </div>
+
+    <div id="step_12_3.html" style="display:none">
     <!-- <b>jq '.metadata.annotations  += { "label4" : "two" }'</b> //-->
     <table>
         <tr>
@@ -2905,7 +3062,7 @@ cat data/ann.json | jq '.metadata.annotations  += { "label4" : "two" }'
         </tr>
     </table>
     </div>
-    <div id="step_11_4.html" style="display:none">
+    <div id="step_12_4.html" style="display:none">
     <table>
         <tr>
             <th>
@@ -2935,8 +3092,13 @@ cat data/ann.json | jq ".metadata.annotations  += { "label4" : "two" }"
 <h2>Set all values in a json object</h2>
 <br/>
 
+ cat  <a onclick="show_div('step_13_2.html')" href="javascript:void(0);"  >ann.json </a>  | jq ' <a onclick="show_div('step_13_3.html')" href="javascript:void(0);"  >.metadata.annotations </a> <a onclick="show_div('step_13_4.html')" href="javascript:void(0);"  > | </a> <a onclick="show_div('step_13_5.html')" href="javascript:void(0);"  > to_entries </a> <a onclick="show_div('step_13_6.html')" href="javascript:void(0);"  > | </a> <a onclick="show_div('step_13_7.html')" href="javascript:void(0);"  > map_values(.value="override-value") </a> <a onclick="show_div('step_13_8.html')" href="javascript:void(0);"  > | </a> <a onclick="show_div('step_13_9.html')" href="javascript:void(0);"  > from_entries</a> '
+</code>
+<br/>
+<br/>
 
-    <div id="step_12_2.html" style="display:none">
+
+    <div id="step_13_2.html" style="display:none">
     <table>
         <tr>
             <th>
@@ -2964,7 +3126,7 @@ cat ann.json
     </table>
     </div>
 
-    <div id="step_12_3.html" style="display:none">
+    <div id="step_13_3.html" style="display:none">
     <!-- <b>jq '.metadata.annotations '</b> //-->
     <table>
         <tr>
@@ -3006,7 +3168,7 @@ cat data/ann.json | jq '.metadata.annotations '
         </tr>
     </table>
     </div>
-    <div id="step_12_4.html" style="display:none">
+    <div id="step_13_4.html" style="display:none">
     <table>
         <tr>
             <th>
@@ -3029,7 +3191,7 @@ cat data/ann.json | jq ".metadata.annotations "
     </table>
     </div>
 
-    <div id="step_12_5.html" style="display:none">
+    <div id="step_13_5.html" style="display:none">
     <!-- <b>jq ' to_entries '</b> //-->
     <table>
         <tr>
@@ -3081,7 +3243,7 @@ cat data/ann.json | jq '.metadata.annotations  |  to_entries '
         </tr>
     </table>
     </div>
-    <div id="step_12_6.html" style="display:none">
+    <div id="step_13_6.html" style="display:none">
     <table>
         <tr>
             <th>
@@ -3119,7 +3281,7 @@ cat data/ann.json | jq ".metadata.annotations  |  to_entries "
     </table>
     </div>
 
-    <div id="step_12_7.html" style="display:none">
+    <div id="step_13_7.html" style="display:none">
     <!-- <b>jq ' map_values(.value="override-value") '</b> //-->
     <table>
         <tr>
@@ -3186,7 +3348,7 @@ cat data/ann.json | jq '.metadata.annotations  |  to_entries  |  map_values(.val
         </tr>
     </table>
     </div>
-    <div id="step_12_8.html" style="display:none">
+    <div id="step_13_8.html" style="display:none">
     <table>
         <tr>
             <th>
@@ -3224,7 +3386,7 @@ cat data/ann.json | jq ".metadata.annotations  |  to_entries  |  map_values(.val
     </table>
     </div>
 
-    <div id="step_12_9.html" style="display:none">
+    <div id="step_13_9.html" style="display:none">
     <!-- <b>jq ' from_entries'</b> //-->
     <table>
         <tr>
@@ -3276,7 +3438,7 @@ cat data/ann.json | jq '.metadata.annotations  |  to_entries  |  map_values(.val
         </tr>
     </table>
     </div>
-    <div id="step_12_10.html" style="display:none">
+    <div id="step_13_10.html" style="display:none">
     <table>
         <tr>
             <th>
@@ -3298,4 +3460,370 @@ cat data/ann.json | jq ".metadata.annotations  |  to_entries  |  map_values(.val
         </tr>
     </table>
     </div>
- cat  <a onclick="show_div('step_12_2.html')" href="javascript:void(0);"  >ann.json </a>  | jq ' <a onclick="show_div('step_12_3.html')" href="javascript:void(0);"  >.metadata.annotations </a> <a onclick="show_div('step_12_4.html')" href="javascript:void(0);"  > | </a> <a onclick="show_div('step_12_5.html')" href="javascript:void(0);"  > to_entries </a> <a onclick="show_div('step_12_6.html')" href="javascript:void(0);"  > | </a> <a onclick="show_div('step_12_7.html')" href="javascript:void(0);"  > map_values(.value="override-value") </a> <a onclick="show_div('step_12_8.html')" href="javascript:void(0);"  > | </a> <a onclick="show_div('step_12_9.html')" href="javascript:void(0);"  > from_entries</a> '
+<h2>Set all values of subset of keys in a json object</h2>
+<br/>
+
+
+    <div id="step_14_2.html" style="display:none">
+    <table>
+        <tr>
+            <th>
+cat ann.json
+            </th>
+        </tr>
+        <tr>
+            <td>
+    <pre>
+{
+  "metadata": {
+    "annotations": {
+      "deployment.kubernetes.io/revision": "1",
+      "machine.openshift.io/owned": "",
+      "label1" : "stam",
+      "label2" : "another",
+      "label3" : "one"
+    }
+  }
+}
+  
+    </pre>
+            </td>
+        </tr>
+    </table>
+    </div>
+
+    <div id="step_14_3.html" style="display:none">
+    <!-- <b>jq '.metadata.annotations '</b> //-->
+    <table>
+        <tr>
+            <th>
+cat data/ann.json 
+            </th>
+            <th>
+cat data/ann.json | jq '.metadata.annotations '
+            </th>
+        </tr>
+        <tr>
+            <td>
+    <pre>
+{
+  "metadata": {
+    "annotations": {
+      "deployment.kubernetes.io/revision": "1",
+      "machine.openshift.io/owned": "",
+      "label1" : "stam",
+      "label2" : "another",
+      "label3" : "one"
+    }
+  }
+}
+  
+    </pre>
+            </td>
+            <td>
+    <pre>
+{
+  "deployment.kubernetes.io/revision": "1",
+  "machine.openshift.io/owned": "",
+  "label1": "stam",
+  "label2": "another",
+  "label3": "one"
+}
+    </pre>
+            </td>
+        </tr>
+    </table>
+    </div>
+    <div id="step_14_4.html" style="display:none">
+    <table>
+        <tr>
+            <th>
+cat data/ann.json | jq ".metadata.annotations "
+            </th>
+        </tr>
+        <tr>
+            <td>
+    <pre>
+{
+  "deployment.kubernetes.io/revision": "1",
+  "machine.openshift.io/owned": "",
+  "label1": "stam",
+  "label2": "another",
+  "label3": "one"
+}
+    </pre>
+            </td>
+        </tr>
+    </table>
+    </div>
+
+    <div id="step_14_5.html" style="display:none">
+    <!-- <b>jq ' to_entries '</b> //-->
+    <table>
+        <tr>
+            <th>
+cat data/ann.json  | jq '.metadata.annotations '
+            </th>
+            <th>
+cat data/ann.json | jq '.metadata.annotations  |  to_entries '
+            </th>
+        </tr>
+        <tr>
+            <td>
+    <pre>
+{
+  "deployment.kubernetes.io/revision": "1",
+  "machine.openshift.io/owned": "",
+  "label1": "stam",
+  "label2": "another",
+  "label3": "one"
+}
+    </pre>
+            </td>
+            <td>
+    <pre>
+[
+  {
+    "key": "deployment.kubernetes.io/revision",
+    "value": "1"
+  },
+  {
+    "key": "machine.openshift.io/owned",
+    "value": ""
+  },
+  {
+    "key": "label1",
+    "value": "stam"
+  },
+  {
+    "key": "label2",
+    "value": "another"
+  },
+  {
+    "key": "label3",
+    "value": "one"
+  }
+]
+    </pre>
+            </td>
+        </tr>
+    </table>
+    </div>
+    <div id="step_14_6.html" style="display:none">
+    <table>
+        <tr>
+            <th>
+cat data/ann.json | jq ".metadata.annotations  |  to_entries "
+            </th>
+        </tr>
+        <tr>
+            <td>
+    <pre>
+[
+  {
+    "key": "deployment.kubernetes.io/revision",
+    "value": "1"
+  },
+  {
+    "key": "machine.openshift.io/owned",
+    "value": ""
+  },
+  {
+    "key": "label1",
+    "value": "stam"
+  },
+  {
+    "key": "label2",
+    "value": "another"
+  },
+  {
+    "key": "label3",
+    "value": "one"
+  }
+]
+    </pre>
+            </td>
+        </tr>
+    </table>
+    </div>
+
+    <div id="step_14_7.html" style="display:none">
+    <!-- <b>jq ' map(if .key  | contains("label") then .value="kuku" else .  end) '</b> //-->
+    <table>
+        <tr>
+            <th>
+cat data/ann.json  | jq '.metadata.annotations  |  to_entries '
+            </th>
+            <th>
+cat data/ann.json | jq '.metadata.annotations  |  to_entries  |  map(if .key  | contains("label") then .value="kuku" else .  end) '
+            </th>
+        </tr>
+        <tr>
+            <td>
+    <pre>
+[
+  {
+    "key": "deployment.kubernetes.io/revision",
+    "value": "1"
+  },
+  {
+    "key": "machine.openshift.io/owned",
+    "value": ""
+  },
+  {
+    "key": "label1",
+    "value": "stam"
+  },
+  {
+    "key": "label2",
+    "value": "another"
+  },
+  {
+    "key": "label3",
+    "value": "one"
+  }
+]
+    </pre>
+            </td>
+            <td>
+    <pre>
+[
+  {
+    "key": "deployment.kubernetes.io/revision",
+    "value": "1"
+  },
+  {
+    "key": "machine.openshift.io/owned",
+    "value": ""
+  },
+  {
+    "key": "label1",
+    "value": "kuku"
+  },
+  {
+    "key": "label2",
+    "value": "kuku"
+  },
+  {
+    "key": "label3",
+    "value": "kuku"
+  }
+]
+    </pre>
+            </td>
+        </tr>
+    </table>
+    </div>
+    <div id="step_14_8.html" style="display:none">
+    <table>
+        <tr>
+            <th>
+cat data/ann.json | jq ".metadata.annotations  |  to_entries  |  map(if .key  | contains("label") then .value="kuku" else .  end) "
+            </th>
+        </tr>
+        <tr>
+            <td>
+    <pre>
+[
+  {
+    "key": "deployment.kubernetes.io/revision",
+    "value": "1"
+  },
+  {
+    "key": "machine.openshift.io/owned",
+    "value": ""
+  },
+  {
+    "key": "label1",
+    "value": "kuku"
+  },
+  {
+    "key": "label2",
+    "value": "kuku"
+  },
+  {
+    "key": "label3",
+    "value": "kuku"
+  }
+]
+    </pre>
+            </td>
+        </tr>
+    </table>
+    </div>
+
+    <div id="step_14_9.html" style="display:none">
+    <!-- <b>jq ' from_entries'</b> //-->
+    <table>
+        <tr>
+            <th>
+cat data/ann.json  | jq '.metadata.annotations  |  to_entries  |  map(if .key  | contains("label") then .value="kuku" else .  end) '
+            </th>
+            <th>
+cat data/ann.json | jq '.metadata.annotations  |  to_entries  |  map(if .key  | contains("label") then .value="kuku" else .  end)  |  from_entries'
+            </th>
+        </tr>
+        <tr>
+            <td>
+    <pre>
+[
+  {
+    "key": "deployment.kubernetes.io/revision",
+    "value": "1"
+  },
+  {
+    "key": "machine.openshift.io/owned",
+    "value": ""
+  },
+  {
+    "key": "label1",
+    "value": "kuku"
+  },
+  {
+    "key": "label2",
+    "value": "kuku"
+  },
+  {
+    "key": "label3",
+    "value": "kuku"
+  }
+]
+    </pre>
+            </td>
+            <td>
+    <pre>
+{
+  "deployment.kubernetes.io/revision": "1",
+  "machine.openshift.io/owned": "",
+  "label1": "kuku",
+  "label2": "kuku",
+  "label3": "kuku"
+}
+    </pre>
+            </td>
+        </tr>
+    </table>
+    </div>
+    <div id="step_14_10.html" style="display:none">
+    <table>
+        <tr>
+            <th>
+cat data/ann.json | jq ".metadata.annotations  |  to_entries  |  map(if .key  | contains("label") then .value="kuku" else .  end)  |  from_entries"
+            </th>
+        </tr>
+        <tr>
+            <td>
+    <pre>
+{
+  "deployment.kubernetes.io/revision": "1",
+  "machine.openshift.io/owned": "",
+  "label1": "kuku",
+  "label2": "kuku",
+  "label3": "kuku"
+}
+    </pre>
+            </td>
+        </tr>
+    </table>
+    </div>
+ cat  <a onclick="show_div('step_14_2.html')" href="javascript:void(0);"  >ann.json </a>  | jq ' <a onclick="show_div('step_14_3.html')" href="javascript:void(0);"  >.metadata.annotations </a> <a onclick="show_div('step_14_4.html')" href="javascript:void(0);"  > | </a> <a onclick="show_div('step_14_5.html')" href="javascript:void(0);"  > to_entries </a> <a onclick="show_div('step_14_6.html')" href="javascript:void(0);"  > | </a> <a onclick="show_div('step_14_7.html')" href="javascript:void(0);"  > map(if .key  | contains("label") then .value="kuku" else .  end) </a> <a onclick="show_div('step_14_8.html')" href="javascript:void(0);"  > | </a> <a onclick="show_div('step_14_9.html')" href="javascript:void(0);"  > from_entries</a> '
