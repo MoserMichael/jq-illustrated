@@ -44,6 +44,11 @@ MSG_CMD_CMD6='Select all key value pairs from a json object where the name conta
 SRC_CMD_CMD6="ann.json"
 CMD_CMD6='.metadata.annotations | to_entries | map(select(.key | contains("label"))) | from_entries'
 
+MSG_CMD_CMD6aa='Select all key value pairs from a json object where the name contains substring "label" (short form)'
+SRC_CMD_CMD6aa="ann.json"
+CMD_CMD6aa='.metadata.annotations | with_entries(select(.key | contains("label")))'
+
+
 MSG_CMD_CMD6a='Select all key value pairs from a json object where the name matches the regular expression label[1-9]'
 SRC_CMD_CMD6a="ann.json"
 CMD_CMD6a=' .metadata.annotations | to_entries | map(select(.key | test("label[1-9]"))) | from_entries '
@@ -56,4 +61,8 @@ MSG_CMD_CMD8='Set all values in a json object'
 SRC_CMD_CMD8="ann.json"
 CMD_CMD8='.metadata.annotations | to_entries | map_values(.value="override-value") | from_entries'
 
+
+MSG_CMD_CMD8aa='Set all values of subset of keys in a json object'
+SRC_CMD_CMD8aa="ann.json"
+CMD_CMD8aa='.metadata.annotations | to_entries | map(if .key  | contains("label") then .value="kuku" else .  end) | from_entries'
 
