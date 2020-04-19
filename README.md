@@ -10,6 +10,7 @@ Both of them are quite powerful, but also dificult to use;
 
 The html was created by [this script](https://github.com/MoserMichael/jq-illustrated/blob/master/scr.sh) 
 
+This tutorial also made it to the Hacker News front page! [link](https://news.ycombinator.com/item?id=22626080) ; I really learned quite a bit from the comments section. Thanks for the feedback. 
 
 
 
