@@ -1,0 +1,3 @@
+*.css linguist-detectable=false
+*.sh linguist-detectable=true
+
